@@ -113,6 +113,9 @@ spring boot api/
 
 ---
 
+## **Live Demo**
+[Click here to view the project](https://elegantjwellery.vercel.app/)
+
 ## **Future Enhancements**
 - Payment Gateway Integration (Stripe/PayPal)
 - User Reviews & Ratings
