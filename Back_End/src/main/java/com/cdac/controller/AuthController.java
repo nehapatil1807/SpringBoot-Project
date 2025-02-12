@@ -36,7 +36,7 @@ public class AuthController {
     private JwtTokenProvider jwtTokenProvider;
     private CustomUserDetails customUserDetails;
     private CartService cartService;
-    private EmailService emailService;  // Inject Email Service
+    private EmailService emailService;  
 
     public AuthController(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider,
                           CustomUserDetails customUserDetails, CartService cartService, EmailService emailService) {
@@ -45,7 +45,7 @@ public class AuthController {
         this.jwtTokenProvider = jwtTokenProvider;
         this.customUserDetails = customUserDetails;
         this.cartService = cartService;
-        this.emailService = emailService;  // Initialize Email Service
+        this.emailService = emailService;   
     }
 
     @PostMapping("/signup")
@@ -59,12 +59,12 @@ public class AuthController {
 
         User isEmailExist = userRepository.findByEmail(email);
 
-        // Check if user with the given email already exists
+       
         if (isEmailExist != null) {
             throw new UserException("Email is already used with another account.");
         }
 
-        // Create new user
+      
         User createdUser = new User();
         createdUser.setEmail(email);
         createdUser.setFirstName(firstName);
@@ -74,13 +74,13 @@ public class AuthController {
 
         User savedUser = userRepository.save(createdUser);
 
-        // Create cart for the user
+       
         cartService.createCart(savedUser);
 
-        // Send welcome email
+         
         emailService.sendRegistrationEmail(savedUser.getEmail(), savedUser.getFirstName());
 
-        // Authenticate the user and generate JWT token
+        
         Authentication authentication = new UsernamePasswordAuthenticationToken(email, password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
